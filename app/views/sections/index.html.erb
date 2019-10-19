@@ -1,0 +1,37 @@
+
+    <%= render "/header"%>
+    <h1>Sections</h1>
+    <%if $isadmin%>
+      <%= link_to 'New Section', new_section_path%>
+    <%end%>
+    <table>
+      <th>Dep ID</th>
+      <th>Department Name</th>
+      <th>Section ID</th>
+      <th>Section Name</th>
+      <th>CO-ORDINATOR Name</th>
+      <th>CO-ORDINATOR ID</th>
+      <%if $isadmin%>
+        <th></th>
+        <th></th>
+      <%end%>
+      <% Department.all.order(:id).each do |d|%>
+        <%d.sections.order(:id).each do |s|%>
+          <tr>
+            <td><%=d.id-%></td>
+            <td><%=d.name-%></td>
+            <td><%=s.id%></td>
+            <td><%=s.name%></td>
+            <td><%=s.co_ordinator.name-%></td>
+            <td><%=s.co_ordinator_id-%></td>
+            <td><%= link_to 'Show', s%></td>
+            <%if $isadmin%>
+              <td><%=link_to 'Edit' ,edit_section_path(s)%></td>
+              <td><%=link_to 'Delete', s, method: :destroy, data: {confirm: "Are you sure you want to delete #{s.class} #{s.name}?"}%></td>
+            <%end%>
+          <%end%>
+        </tr>
+      <%end%>
+
+    </table>
+    <%= render "/footer"%>

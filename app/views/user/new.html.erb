@@ -1,0 +1,62 @@
+<h2>User Sign up</h2>
+
+<%= form_for(@user, url: user_registration_path(@user), method: "post") do |f| %>
+
+
+
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name, autofocus: true, autocomplete: "name" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :email %><br />
+    <%= f.email_field :email, autocomplete: "email" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :password %>
+    <% if @minimum_password_length %>
+    <em>(<%= @minimum_password_length %> characters minimum)</em>
+    <% end %><br />
+    <%= f.password_field :password, autocomplete: "new-password" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :password_confirmation %><br />
+    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :phone %><br />
+    <%= f.number_field :phone, autocomplete: "phone" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :date_of_birth %><br />
+    <%= f.date_field :date_of_birth %>
+  </div>
+
+  <div class="field">
+    <%= f.label :accepted_tos %><br />
+    <%= f.check_box :accepted_tos %>
+  </div>
+
+  <div class="field">
+    <%= f.label :new_att1 %><br />
+    <%= f.text_field :new_att1 %>
+  </div>
+  <div class="field">
+    <%= f.label :new_att2 %><br />
+    <%= f.number_field :new_att2 %>
+  </div>
+  <div class="field">
+    <%= f.label :new_att3 %><br />
+    <%= f.date_field :new_att3 %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "Sign up" %>
+  </div>
+<% end %>
+

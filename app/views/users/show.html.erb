@@ -1,0 +1,68 @@
+
+<%= render  "/header" %>
+<%if @user!=nil%>
+<%if session[:user_id]!=@user.id%>
+<h3>Oops you can't access some other profile, sorry...!!!</h3>
+
+<%elsif session[:user_id]==@user.id%>
+
+<%= "Welcome to your account " + @user.name + " !"%>
+
+
+<%= form_for @user, :url => { :action => "update" }, :multipart => true, :disabled => true do |f| %>
+   
+<img src="<%=@user.image_path%>" height="100", width="100"/>
+  
+    <%= f.label :name, 'Name' %>
+    <%= f.text_field :name, :disabled => true %> <br/>
+    
+    <%= f.label :email, 'Email' %>
+    <%= f.email_field :email, :disabled => true %> <br/>
+  
+    <%= f.label :password, 'Password'%>
+    <%= f.text_field :password, :disabled => true%> <br/>
+  
+    <%# do confirm password%>
+  
+    <%=f.label :phone, 'Phone number'%>
+    <%= f.number_field :phone, :disabled => true%><br/>
+  
+    <%=f.label :address, 'Street Address'%>
+    <%=f.text_area :address, :disabled => true%><br/>
+  
+    <%= f.select :city, options_for_select(['CITY 1', 'CITY 2']), { prompt: 'Select city' } , :disabled => true  %> 
+    <br/>
+    <%= f.select :state, options_for_select(['state 1', ['state 2']]), { prompt: 'Select state' } , :disabled => true%> 
+    <br/>
+    <%= f.select :country, options_for_select(['c1']), { prompt: 'Select country' }, :disabled => true%> 
+    <br/>
+    
+    <%=f.label :date_of_birth, 'Date of Birth'%>
+    <%=f.date_select :date_of_birth , :disabled => true%><br/>
+  
+    <%= f.label :gender, 'Gender'%>
+    <%= f.radio_button :gender, 'm', :checked => true , :disabled => true%><%= f.label :gender, 'Male' %><%= f.radio_button :gender, 'f' , :disabled => true%><%= f.label :gender, 'Female' %><br/>
+  
+  
+   
+    
+    <% #tos checkbox %>
+    <%= f.check_box :accepted_tos, :disabled => true%> <%= f.label :accepted_tos, 'Do you accept the TOS?'%><br/>
+    <%= f.label :image, 'Upload profile Pic'%>
+    <%= f.file_field :image ,accept: 'image/png,image/jpeg,image/jpg', :disabled => true%><br/><br/>
+  
+    <%= f.submit "Update" , :disabled => true%>
+    
+    
+  <% end %>
+
+<%end%>
+
+
+<%else%>
+<h3>Oops, we think you are trying to acces a non-existing user..!!!</h3>
+<%end%>
+
+<%=link_to 'Delete Account', '/users/' + @user.id.to_s, method:'delete' , data: {confirm: "Are you serious for deleting your account?"}%>
+
+<%= render  "/footer" %>
