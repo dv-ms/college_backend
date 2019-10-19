@@ -17,16 +17,14 @@ class ApplicationController < ActionController::Base
     token = params[:auth]
     if token == ENV["API_ACCESS_TOKEN"]
     else respond_to :json
-      message = "Invalid resource access token"
-      render json: message.to_json
+      API_respond(401, "Invalid API Access Token", nil)
     end
   end
   def authenticate_api_modify_token
     token = params[:auth]
     if token == ENV["API_MODIFY_TOKEN"]
     else respond_to :json
-      message = "Invalid resource modify token"
-      render json: message.to_json
+      API_respond(401, "Invalid API Modify Token", nil)
     end
   end
 
