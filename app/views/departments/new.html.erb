@@ -1,0 +1,35 @@
+
+    <h1>Add New Department</h1>
+
+    <%if @department.errors.any?%>
+      <div id="error_explanation">
+        <h2>
+          <%= pluralize(@department.errors.count, "error") %>
+          prohibited this department from being saved:
+        </h2>
+
+        <ul>
+          <% @department.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
+    <%end%>
+
+    <%= form_for @department do |form|%>
+    <p>
+      <%= form.label :id %>
+      <%= form.text_field :id, :value => (Department.all.order(:id).last.id + 1), :required => true, :readonly => true %>
+    </p>
+    <p>
+      <%= form.label :name %>
+      <%= form.text_field :name , :required => true%>
+    </p>
+    <p>
+      <%= form.label :hod_id %>
+      <%= form.text_field :hod_id, :requiered => true%>
+    </p>
+
+    <br/>
+    <%=form.submit%>
+  <% end %>
