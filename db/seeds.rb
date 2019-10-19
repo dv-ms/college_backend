@@ -5,7 +5,3 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
-
-100.times do
-    Department.create(name: Faker::Company.unique.industry, hod_id: Faker::Number.unique.within(range: 1..500))
-end
