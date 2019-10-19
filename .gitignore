@@ -1,0 +1,14 @@
+/ACCC4CF8.asc
+/.browserslistrc
+/.byebug_history
+/log/*
+/tmp/*
+/vendor/*
+
+# Ignore bundler config.
+/.bundle
+
+# Ignore all logfiles and tempfiles.
+/log/*
+!/log/.keep
+/tmp
