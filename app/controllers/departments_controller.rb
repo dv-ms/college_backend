@@ -31,7 +31,6 @@ class DepartmentsController < ApplicationController
     result = SearchDepartments.new(name, hod_id, page).execute
 
     if result.success?
-      puts "sucesssss **********************"
       puts result.result
       @departments = result.result
     end
@@ -124,7 +123,8 @@ class DepartmentsController < ApplicationController
   end
 
   def search
-    respond_to :json
+    # respond_to :json
+    
     name_query = params[:name]
     hod_id_query = params[:hod_id]
 

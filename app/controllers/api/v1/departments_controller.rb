@@ -1,17 +1,12 @@
 module Api
     module V1
       class DepartmentsController < ApplicationController
-        before_action :authenticate_api_access_token, only: [:index, :show]
+        before_action :authenticate_api_access_token, only: [:index, :show, :search]
         before_action :authenticate_api_modify_token, only: [:create, :update, :destroy]
   
         def index
           departments = Department.all.order(:id)
-
-          status = 200
-          message = "List of all Departments"
-          data = departments
-
-          API_respond(status, message, data)  
+          API_respond(200, "Listof all departments", departments)
         end
   
         def show
@@ -91,7 +86,62 @@ module Api
             data = nil
           end
           API_respond(status, message, data)
-        end   
+        end
+
+        def search
+          departments = Department.new
+          
+          name = ""
+          hod_id = ""
+          page = ""
+
+          if params[:search_name].present?
+            name = params[:search_name]
+          end
+
+          if params[:search_hod_id].present?
+            hod_id = params[:search_hod_id]
+          end
+
+          if params[:page].present?
+            page = params[:page]
+          end
+
+          puts name
+          puts hod_id
+          puts page
+
+          result = SearchDepartments.new(name, hod_id, page).execute
+
+          if result.success?
+            departments = result.result
+          end
+
+          if params[:sort_by_name].present?
+            if params[:sort_by_name] == "true"
+              departments = departments.order(:name)
+              
+            elsif params[:sort_by_name] == "false"
+              departments = departments.order("name DESC")
+            end
+
+          end
+
+          if params[:sort_by_id].present?
+            if params[:sort_by_id] == "true"
+              departments = departments.order(:id)
+            elsif params[:sort_by_id] == "false"
+              departments = departments.order("id DESC")  
+            end
+
+          end
+
+          status = 200
+          message = "Departments search results"
+          data = departments
+
+          API_respond(status, message, data)
+        end
         
         private
         def department_params
