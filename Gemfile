@@ -20,7 +20,7 @@ gem "google-cloud-translate"
 
 gem 'active_model_serializers'
 
-gem 'carrierwave', '~> 2.0'
+gem 'carrierwave', '~> 2.1'
 
 gem 'react_on_rails', '11.2.1'
 
